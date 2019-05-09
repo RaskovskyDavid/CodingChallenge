@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodingChallenge.Data.Classes
 {
-    public interface IFormaGeometrica
+    public interface IGeometrica
     {
         decimal CalcularArea();
         decimal CalcularPerimetro();

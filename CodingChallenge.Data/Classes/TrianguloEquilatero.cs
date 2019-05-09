@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodingChallenge.Data.Classes
 {
-    public class TrianguloEquilatero : Geometria, IFormaGeometrica
+    public class TrianguloEquilatero : Geometria, IGeometrica
     {
         public TrianguloEquilatero(decimal lado)
         {

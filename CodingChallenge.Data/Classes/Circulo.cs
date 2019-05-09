@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodingChallenge.Data.Classes
 {
-    public class Circulo : Geometria, IFormaGeometrica
+    public class Circulo : Geometria, IGeometrica
     {
         public Circulo(decimal lado)
         {

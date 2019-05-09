@@ -12,20 +12,20 @@ namespace CodingChallenge.Data.Tests
         public void TestResumenListaVacia()
         {
             Assert.AreEqual("<h1>Lista vacía de formas!</h1>",
-                FormaGeometrica.Imprimir(new List<IFormaGeometrica>(), Diccionarios.Castellano));
+                FormaGeometrica.Imprimir(new List<IGeometrica>(), Diccionarios.Castellano));
         }
 
         [TestCase]
         public void TestResumenListaVaciaFormasEnIngles()
         {
             Assert.AreEqual("<h1>Empty list of shapes!</h1>",
-                FormaGeometrica.Imprimir(new List<IFormaGeometrica>(), Diccionarios.Ingles));
+                FormaGeometrica.Imprimir(new List<IGeometrica>(), Diccionarios.Ingles));
         }
 
         [TestCase]
         public void TestResumenListaConUnCuadrado()
         {
-            var cuadrados = new List<IFormaGeometrica> {new Cuadrado(5)};
+            var cuadrados = new List<IGeometrica> {new Cuadrado(5)};
 
             var resumen = FormaGeometrica.Imprimir(cuadrados, Diccionarios.Castellano);
 
@@ -35,7 +35,7 @@ namespace CodingChallenge.Data.Tests
         [TestCase]
         public void TestResumenListaConMasCuadrados()
         {
-            var cuadrados = new List<IFormaGeometrica>
+            var cuadrados = new List<IGeometrica>
             {
                 new Cuadrado(5),
                 new Cuadrado(1),
@@ -50,7 +50,7 @@ namespace CodingChallenge.Data.Tests
         [TestCase]
         public void TestResumenListaConMasTipos()
         {
-            var formas = new List<IFormaGeometrica>
+            var formas = new List<IGeometrica>
             {
                 new Cuadrado(5),
                 new Circulo(3),
@@ -71,7 +71,7 @@ namespace CodingChallenge.Data.Tests
         [TestCase]
         public void TestResumenListaConMasTiposEnCastellano()
         {
-            var formas = new List<IFormaGeometrica>
+            var formas = new List<IGeometrica>
             {
                 new Cuadrado(5),
                 new Circulo(3),

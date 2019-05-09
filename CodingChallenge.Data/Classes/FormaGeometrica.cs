@@ -42,7 +42,7 @@ namespace CodingChallenge.Data.Classes
             _lado = ancho;
         }
 
-        public static string Imprimir(List<IFormaGeometrica> formas,
+        public static string Imprimir(List<IGeometrica> formas,
             Dictionary<string, string> diccionario)
         {
             var sb = new StringBuilder();
