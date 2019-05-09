@@ -12,6 +12,8 @@ namespace CodingChallenge.Data.Classes
         {
             Lado = lado;
             Tipo = 2;
+            KeyDeDiccionario = "circulo";
+
         }
 
 
@@ -24,7 +26,10 @@ namespace CodingChallenge.Data.Classes
         {
             return (decimal)Math.PI * Lado;
         }
-
+        public string ObtenerkeyDeDiccionario()
+        {
+            return KeyDeDiccionario;
+        }
         public int ObtenerTipo()
         {
             return Tipo;

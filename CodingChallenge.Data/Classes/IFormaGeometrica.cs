@@ -11,5 +11,6 @@ namespace CodingChallenge.Data.Classes
         decimal CalcularArea();
         decimal CalcularPerimetro();
         int ObtenerTipo();
+        string ObtenerkeyDeDiccionario();
     }
 }

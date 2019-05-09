@@ -20,6 +20,18 @@ namespace CodingChallenge.Data.Classes
                 _tipo = value;
             }
         }
+        string _keyDeDiccionario;
+        public virtual string KeyDeDiccionario
+        {
+            get
+            {
+                return _keyDeDiccionario;
+            }
+            protected set
+            {
+                _keyDeDiccionario = value;
+            }
+        }
         public decimal Lado { get; set; }
     }
 }

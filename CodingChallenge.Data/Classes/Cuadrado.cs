@@ -12,6 +12,7 @@ namespace CodingChallenge.Data.Classes
         {
             Lado = lado;
             Tipo = 1;
+            KeyDeDiccionario = "cuadrado";
         }
 
 
@@ -23,6 +24,11 @@ namespace CodingChallenge.Data.Classes
         public decimal CalcularPerimetro()
         {
             return Lado * 4;
+        }
+
+        public string ObtenerkeyDeDiccionario()
+        {
+            return KeyDeDiccionario;
         }
 
         public int ObtenerTipo()

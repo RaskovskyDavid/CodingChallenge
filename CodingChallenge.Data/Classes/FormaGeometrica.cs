@@ -42,27 +42,20 @@ namespace CodingChallenge.Data.Classes
             _lado = ancho;
         }
 
-        public static string Imprimir(List<IFormaGeometrica> formas, int idioma)
+        public static string Imprimir(List<IFormaGeometrica> formas,
+            Dictionary<string, string> diccionario)
         {
             var sb = new StringBuilder();
 
             if (!formas.Any())
             {
-                if (idioma == Castellano)
-                    sb.Append("<h1>Lista vacía de formas!</h1>");
-                else
-                    sb.Append("<h1>Empty list of shapes!</h1>");
+                sb.Append(diccionario["h1-vacio"]);                
             }
             else
             {
                 // Hay por lo menos una forma
                 // HEADER
-                if (idioma == Castellano)
-                    sb.Append("<h1>Reporte de Formas</h1>");
-                else
-                    // default es inglés
-                    sb.Append("<h1>Shapes report</h1>");
-                string type = null;
+                sb.Append(diccionario["h1-no-vacio"]);
                 int numero = 0;
                 decimal area = 0;
                 decimal perimetro = 0;
@@ -71,13 +64,15 @@ namespace CodingChallenge.Data.Classes
                 decimal perimetrosDeFormas = 0;
                 decimal areaDeFormas = 0;
                 var lista = formas.OrderBy(f => f.ObtenerTipo()).ToList();
+                string @key = null;
                 foreach (var forma in lista)
                 {
                     
                     if(forma.ObtenerTipo() != tipo)
                     {
                         if(tipo != 0)
-                            sb.Append(ObtenerLinea(numero, area, perimetro, tipo, idioma));
+                            sb.Append(ObtenerLinea(numero, area, perimetro, key, diccionario));
+                        key = forma.ObtenerkeyDeDiccionario();
                         tipo = forma.ObtenerTipo();                        
                         numero = 1;
                         area = forma.CalcularArea();
@@ -92,48 +87,35 @@ namespace CodingChallenge.Data.Classes
                     areaDeFormas += forma.CalcularArea();
                     perimetrosDeFormas += forma.CalcularPerimetro();
                     numeroDeFormas++;
+                    
                 }
-                sb.Append(ObtenerLinea(numero, area, perimetro, tipo, idioma));              
+                sb.Append(ObtenerLinea(numero, area, perimetro, key, diccionario));
 
                 // FOOTER
-                sb.Append("TOTAL:<br/>");
-                sb.Append(numeroDeFormas + " " + (idioma == Castellano ? "formas" : "shapes") + " ");
-                sb.Append((idioma == Castellano ? "Perimetro " : "Perimeter ") + perimetrosDeFormas.ToString("#.##") + " ");
+                sb.Append(diccionario["total-final"]);
+                sb.Append(numeroDeFormas + " " + diccionario["formas"] + " ");
+                sb.Append(diccionario["perimetro"] + perimetrosDeFormas.ToString("#.##") + " ");
                 sb.Append("Area " + areaDeFormas.ToString("#.##"));
             }
 
             return sb.ToString();
         }
 
-        private static string ObtenerLinea(int cantidad, decimal area, decimal perimetro, int tipo, int idioma)
+        private static string ObtenerLinea(int cantidad, decimal area, decimal perimetro, string @key,
+            Dictionary<string, string> diccionario)
         {
             if (cantidad > 0)
             {
-                if (idioma == Castellano)
-                    return $"{cantidad} {TraducirForma(tipo, cantidad, idioma)} | Area {area:#.##} | Perimetro {perimetro:#.##} <br/>";
-
-                return $"{cantidad} {TraducirForma(tipo, cantidad, idioma)} | Area {area:#.##} | Perimeter {perimetro:#.##} <br/>";
+                return $"{cantidad} {TraducirForma( key, cantidad, diccionario)} | {diccionario["linea-area"]} {area:#.##} | {diccionario["linea-perimetro"]} {perimetro:#.##} <br/>";
             }
 
             return string.Empty;
         }
 
-        private static string TraducirForma(int tipo, int cantidad, int idioma)
+        private static string TraducirForma(string @key, int cantidad, 
+            Dictionary<string, string> diccionario)
         {
-            switch (tipo)
-            {
-                case Cuadrado:
-                    if (idioma == Castellano) return cantidad == 1 ? "Cuadrado" : "Cuadrados";
-                    else return cantidad == 1 ? "Square" : "Squares";
-                case Circulo:
-                    if (idioma == Castellano) return cantidad == 1 ? "Círculo" : "Círculos";
-                    else return cantidad == 1 ? "Circle" : "Circles";
-                case TrianguloEquilatero:
-                    if (idioma == Castellano) return cantidad == 1 ? "Triángulo" : "Triángulos";
-                    else return cantidad == 1 ? "Triangle" : "Triangles";
-            }
-
-            return string.Empty;
+            return cantidad == 1 ? diccionario[key+"-singular"] : diccionario[key + "-plural"];
         }
 
         public decimal CalcularArea()
