@@ -19,8 +19,8 @@ namespace CodingChallenge.Data.Classes
         #region Formas
 
         public const int Cuadrado = 1;
-        public const int TrianguloEquilatero = 2;
-        public const int Circulo = 3;
+        public const int TrianguloEquilatero = 3;
+        public const int Circulo = 2;
         public const int Trapecio = 4;
 
         #endregion
@@ -42,7 +42,7 @@ namespace CodingChallenge.Data.Classes
             _lado = ancho;
         }
 
-        public static string Imprimir(List<FormaGeometrica> formas, int idioma)
+        public static string Imprimir(List<IFormaGeometrica> formas, int idioma)
         {
             var sb = new StringBuilder();
 
@@ -62,50 +62,44 @@ namespace CodingChallenge.Data.Classes
                 else
                     // default es inglés
                     sb.Append("<h1>Shapes report</h1>");
-
-                var numeroCuadrados = 0;
-                var numeroCirculos = 0;
-                var numeroTriangulos = 0;
-
-                var areaCuadrados = 0m;
-                var areaCirculos = 0m;
-                var areaTriangulos = 0m;
-
-                var perimetroCuadrados = 0m;
-                var perimetroCirculos = 0m;
-                var perimetroTriangulos = 0m;
-
-                for (var i = 0; i < formas.Count; i++)
+                string type = null;
+                int numero = 0;
+                decimal area = 0;
+                decimal perimetro = 0;
+                int tipo = 0;
+                int numeroDeFormas = 0;
+                decimal perimetrosDeFormas = 0;
+                decimal areaDeFormas = 0;
+                var lista = formas.OrderBy(f => f.ObtenerTipo()).ToList();
+                foreach (var forma in lista)
                 {
-                    if (formas[i].Tipo == Cuadrado)
+                    
+                    if(forma.ObtenerTipo() != tipo)
                     {
-                        numeroCuadrados++;
-                        areaCuadrados += formas[i].CalcularArea();
-                        perimetroCuadrados += formas[i].CalcularPerimetro();
+                        if(tipo != 0)
+                            sb.Append(ObtenerLinea(numero, area, perimetro, tipo, idioma));
+                        tipo = forma.ObtenerTipo();                        
+                        numero = 1;
+                        area = forma.CalcularArea();
+                        perimetro = forma.CalcularPerimetro();
                     }
-                    if (formas[i].Tipo == Circulo)
+                    else
                     {
-                        numeroCirculos++;
-                        areaCirculos += formas[i].CalcularArea();
-                        perimetroCirculos += formas[i].CalcularPerimetro();
+                        numero++;
+                        area += forma.CalcularArea();
+                        perimetro += forma.CalcularPerimetro();
                     }
-                    if (formas[i].Tipo == TrianguloEquilatero)
-                    {
-                        numeroTriangulos++;
-                        areaTriangulos += formas[i].CalcularArea();
-                        perimetroTriangulos += formas[i].CalcularPerimetro();
-                    }
+                    areaDeFormas += forma.CalcularArea();
+                    perimetrosDeFormas += forma.CalcularPerimetro();
+                    numeroDeFormas++;
                 }
-                
-                sb.Append(ObtenerLinea(numeroCuadrados, areaCuadrados, perimetroCuadrados, Cuadrado, idioma));
-                sb.Append(ObtenerLinea(numeroCirculos, areaCirculos, perimetroCirculos, Circulo, idioma));
-                sb.Append(ObtenerLinea(numeroTriangulos, areaTriangulos, perimetroTriangulos, TrianguloEquilatero, idioma));
+                sb.Append(ObtenerLinea(numero, area, perimetro, tipo, idioma));              
 
                 // FOOTER
                 sb.Append("TOTAL:<br/>");
-                sb.Append(numeroCuadrados + numeroCirculos + numeroTriangulos + " " + (idioma == Castellano ? "formas" : "shapes") + " ");
-                sb.Append((idioma == Castellano ? "Perimetro " : "Perimeter ") + (perimetroCuadrados + perimetroTriangulos + perimetroCirculos).ToString("#.##") + " ");
-                sb.Append("Area " + (areaCuadrados + areaCirculos + areaTriangulos).ToString("#.##"));
+                sb.Append(numeroDeFormas + " " + (idioma == Castellano ? "formas" : "shapes") + " ");
+                sb.Append((idioma == Castellano ? "Perimetro " : "Perimeter ") + perimetrosDeFormas.ToString("#.##") + " ");
+                sb.Append("Area " + areaDeFormas.ToString("#.##"));
             }
 
             return sb.ToString();
