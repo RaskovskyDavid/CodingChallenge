@@ -21,7 +21,12 @@ namespace CodingChallenge.Data.Tests
             Assert.AreEqual("<h1>Empty list of shapes!</h1>",
                 FormaGeometrica.Imprimir(new List<IGeometrica>(), Diccionarios.Ingles));
         }
-
+        [TestCase]
+        public void TestResumenListaVaciaFormasEnPortugues()
+        {
+            Assert.AreEqual("<h1>Lista vazia de formas!</h1>",
+                FormaGeometrica.Imprimir(new List<IGeometrica>(), Diccionarios.Portugues));
+        }
         [TestCase]
         public void TestResumenListaConUnCuadrado()
         {
@@ -31,7 +36,15 @@ namespace CodingChallenge.Data.Tests
 
             Assert.AreEqual("<h1>Reporte de Formas</h1>1 Cuadrado | Area 25 | Perimetro 20 <br/>TOTAL:<br/>1 formas Perimetro 20 Area 25", resumen);
         }
+        [TestCase]
+        public void TestResumenListaConUnTrapecio()
+        {
+            var cuadrados = new List<IGeometrica> { new Trapecio(2) };
 
+            var resumen = FormaGeometrica.Imprimir(cuadrados, Diccionarios.Castellano);
+
+            Assert.AreEqual("<h1>Reporte de Formas</h1>1 Trapecio | Area 6 | Perimetro 10,83 <br/>TOTAL:<br/>1 formas Perimetro 10,83 Area 6", resumen);
+        }
         [TestCase]
         public void TestResumenListaConMasCuadrados()
         {

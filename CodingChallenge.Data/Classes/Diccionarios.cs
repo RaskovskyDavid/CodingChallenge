@@ -26,6 +26,8 @@ namespace CodingChallenge.Data.Classes
                 diccionario.Add("triangulo-plural", "Triángulos");
                 diccionario.Add("linea-area", "Area");
                 diccionario.Add("linea-perimetro", "Perimetro");
+                diccionario.Add("trapecio-singular", "Trapecio");
+                diccionario.Add("trapecio-plural", "Trapecios");
                 return diccionario;
             }
         }
@@ -47,6 +49,33 @@ namespace CodingChallenge.Data.Classes
                 diccionario.Add("triangulo-plural", "Triangles");
                 diccionario.Add("linea-area", "Area");
                 diccionario.Add("linea-perimetro", "Perimeter");
+
+                diccionario.Add("trapecio-singular", "Trapezoid");
+                diccionario.Add("trapecio-plural", "Trapezoids");
+                return diccionario;
+            }
+        }
+        public static Dictionary<string, string> Portugues
+        {
+            get
+            {
+                var diccionario = new Dictionary<string, string>();
+                diccionario.Add("h1-vacio", "<h1>Lista vazia de formas!</h1>");
+                diccionario.Add("h1-no-vacio", "<h1>Relatório de formas</h1>");
+                diccionario.Add("total-final", "TOTAL:<br/>");
+                diccionario.Add("formas", "formas");
+                diccionario.Add("perimetro", "Perímetro ");
+                diccionario.Add("cuadrado-singular", "Quadrado");
+                diccionario.Add("cuadrado-plural", "Quadrados");
+                diccionario.Add("circulo-singular", "Círculo");
+                diccionario.Add("circulo-plural", "Círculos");
+                diccionario.Add("triangulo-singular", "Triângulo");
+                diccionario.Add("triangulo-plural", "Triângulos");
+                diccionario.Add("linea-area", "Area");
+                diccionario.Add("linea-perimetro", "Perimetro");
+
+                diccionario.Add("trapecio-singular", "Trapezóide");
+                diccionario.Add("trapecio-plural", "Trapezóides");
                 return diccionario;
             }
         }
